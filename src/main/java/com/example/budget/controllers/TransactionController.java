@@ -58,4 +58,30 @@ public class TransactionController {
                 .toList();
         return ResponseEntity.ok(transactionDTOs);
     }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<TransactionDTO> updateTransaction(@PathVariable Long id,
+                                                            @RequestBody TransactionDTO transactionDTO, Principal principal) {
+        if (!transactionService.isExists(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        User user = userService.findByUsername(principal.getName())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        Category category = categoryService.findById(transactionDTO.getCategoryId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found"));
+        transactionDTO.setId(id);
+        Transaction transaction = transactionMapper.toTransaction(transactionDTO);
+        Transaction savedTransaction = transactionService.addTransaction(transaction, user, category);
+        return ResponseEntity.ok(transactionMapper.toTransactionDTO(savedTransaction));
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteTransaction(@PathVariable Long id) {
+        if (!transactionService.isExists(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        transactionService.deleteTransaction(id);
+        return ResponseEntity.noContent().build();
+    }
 }

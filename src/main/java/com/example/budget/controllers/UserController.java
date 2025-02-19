@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-
+@RequestMapping("/auth")
 @RestController
 public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+
 
     public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;

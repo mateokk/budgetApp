@@ -8,11 +8,19 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Builder
 public class TransactionDTO {
+    private Long id;
     private String description;
     private Double amount;
     private LocalDate date;
     private Long categoryId;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;

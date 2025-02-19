@@ -27,4 +27,12 @@ public class CategoryService {
     public Optional<Category> findById(Long id) {
         return categoryRepository.findById(id);
     }
+
+    public boolean isExists(Long id) {
+        return categoryRepository.existsById(id);
+    }
+
+    public void deleteCategory(Long id) {
+        categoryRepository.deleteById(id);
+    }
 }

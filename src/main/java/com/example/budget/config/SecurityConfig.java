@@ -32,7 +32,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register").permitAll()
+                        .requestMatchers("auth/login", "auth/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
@@ -40,8 +40,14 @@ public class SecurityConfig {
 //                        .loginPage("/login")
 //                        .permitAll()
 //                )
-                .logout(LogoutConfigurer::permitAll)
-                .rememberMe(Customizer.withDefaults())
+                .logout(logout -> logout
+                        .logoutUrl("/auth/logout")
+                        .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+
+                )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
         ;
         return http.build();

@@ -25,4 +25,11 @@ public class TransactionService {
     public List<Transaction> getTransactionsByUser(User user) {
         return transactionRepository.findByUser(user);
     }
+
+    public boolean isExists(Long id) {
+        return transactionRepository.existsById(id);
+    }
+    public void deleteTransaction(Long id) {
+        transactionRepository.deleteById(id);
+    }
 }
