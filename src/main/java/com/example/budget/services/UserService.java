@@ -3,6 +3,7 @@ package com.example.budget.services;
 import com.example.budget.model.User;
 import com.example.budget.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,7 +46,7 @@ public class UserService {
         if(authentication.isAuthenticated()) {
             return jwtService.generateToken(username);
         }
-        return "false";
+        throw new BadCredentialsException("Invalid credentials");
     }
 
 }
