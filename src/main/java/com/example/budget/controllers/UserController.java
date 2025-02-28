@@ -7,13 +7,11 @@ import com.example.budget.mappers.UserMapper;
 import com.example.budget.model.User;
 import com.example.budget.services.UserService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 @RequestMapping("/auth")
 @RestController
 public class UserController {
@@ -46,7 +44,5 @@ public class UserController {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return ResponseEntity.ok(userMapper.toUserResponseDTO(user));
     }
-
-
 
 }

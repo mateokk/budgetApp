@@ -13,6 +13,7 @@ public class TransactionDTO {
     private Double amount;
     private LocalDate date;
     private Long categoryId;
+    private String categoryName;
 
     public Long getId() {
         return id;
@@ -54,4 +55,17 @@ public class TransactionDTO {
         this.categoryId = categoryId;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public TransactionDTO(String description, Double amount, Long categoryId) {
+        this.description = description;
+        this.amount = amount;
+        this.categoryId = categoryId;
+    }
 }
