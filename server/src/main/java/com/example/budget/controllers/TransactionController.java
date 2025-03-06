@@ -49,10 +49,21 @@ public class TransactionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TransactionDTO>> getTransactions(Principal principal) {
+    public ResponseEntity<List<TransactionDTO>> getTransactions(
+            @RequestParam(required = false) Long categoryId,
+            Principal principal) {
         User user = userService.findByUsername(principal.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        List<TransactionDTO> transactionDTOs = transactionService.getTransactionsByUser(user)
+
+        List<Transaction> transactions;
+        if(categoryId != null) {
+            if(categoryService.isExists(categoryId)) {
+                transactions = transactionService.getTransactionsByUserAndCategory(user, categoryId);
+            } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found");
+        } else {
+            transactions = transactionService.getTransactionsByUser(user);
+        }
+        List<TransactionDTO> transactionDTOs = transactions
                 .stream()
                 .map(transactionMapper::toTransactionDTO)
                 .toList();

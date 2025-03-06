@@ -1,0 +1,39 @@
+.addUser {
+  margin: 50px auto;
+  width: 25%;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+}
+
+.addUserForm .inputGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.addUserForm .inputGroup label {
+  margin-top: 10px;
+
+}
+.addUserForm .inputGroup input {
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.inputGroup button {
+  margin-top: 20px;
+  width: 60%;
+}
+.login {
+  margin-top: 30px;
+  text-align: center;
+}
+.login .btnbtn-warning {
+  width: 50%;
+}
+.addUser h3 {
+  text-align: center;
+  font-weight: bold;
+  color: grey;
+}
